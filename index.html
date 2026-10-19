@@ -6,7 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Me Fitness">
-  <title>Me Fitness Pro</title>
+  <title>Me Fitness</title>
   <style>
     :root {
       --bg: #0b0d11;
@@ -35,14 +35,14 @@
     }
     .brand h1 { font-size: 1.35rem; margin: 0; color: var(--primary); font-weight: 800; }
     .brand span { font-size: 0.78rem; color: var(--muted); }
-    .header-actions { display: flex; gap: 8px; }
+    .header-actions { display: flex; gap: 6px; }
     .icon-btn {
       background: var(--card);
       border: 1px solid var(--card-border);
       color: var(--text);
-      padding: 8px 11px;
+      padding: 8px 10px;
       border-radius: 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
     }
@@ -117,6 +117,15 @@
       border-radius: 6px;
       font-weight: 700;
     }
+    .edit-ex-btn {
+      background: #1f2532;
+      border: 1px solid var(--card-border);
+      color: var(--muted);
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 0.72rem;
+      cursor: pointer;
+    }
     .setup-toggle {
       background: none;
       border: none;
@@ -128,6 +137,7 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
+      text-align: left;
     }
     .note-box {
       width: 100%;
@@ -194,6 +204,18 @@
       border-color: var(--success);
       color: #052e16;
     }
+    .btn-add-ex {
+      width: 100%;
+      background: #151921;
+      border: 1px dashed var(--card-border);
+      color: var(--muted);
+      padding: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 4px;
+    }
     .btn-finish {
       width: 100%;
       background: linear-gradient(135deg, #10b981, #059669);
@@ -203,13 +225,62 @@
       border-radius: 12px;
       font-weight: 800;
       font-size: 1rem;
-      margin-top: 14px;
+      margin-top: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
     }
+
+    /* Kompakte Log-Übersicht */
+    .log-item {
+      background: #0e1117;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .log-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .log-title { font-weight: 800; font-size: 1rem; color: var(--primary); }
+    .log-date { font-size: 0.76rem; color: var(--muted); }
+    .log-stats { font-size: 0.8rem; margin-bottom: 10px; color: var(--muted); }
+    .log-mini-table {
+      background: #151921;
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+    }
+    .log-mini-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .log-mini-row:last-child { border-bottom: none; }
+    .log-mini-name { color: var(--text); font-weight: 600; }
+    .log-mini-val { color: var(--primary); font-variant-numeric: tabular-nums; font-weight: 700; }
+    .log-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+    .btn-sm {
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background: #1e2430;
+      color: var(--text);
+    }
+    .btn-sm.primary { background: var(--primary); color: #000; border-color: var(--primary); }
+    .btn-sm.danger { background: rgba(239, 68, 68, 0.18); color: var(--danger); border-color: var(--danger); }
+
     /* Floating Timer Bar */
     .timer-bar {
       position: fixed;
@@ -251,7 +322,7 @@
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.82);
       backdrop-filter: blur(4px);
       display: none;
       align-items: center;
@@ -274,9 +345,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
-    .modal-header h3 { margin: 0; font-size: 1.15rem; color: var(--primary); }
+    .modal-header h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
     .close-modal-btn {
       background: transparent;
       border: none;
@@ -284,35 +355,28 @@
       font-size: 1.4rem;
       cursor: pointer;
     }
-    .log-item {
+    .chip-wrap { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .chip {
       background: #0e1117;
       border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 12px;
-    }
-    .log-item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    .log-title { font-weight: 800; font-size: 0.95rem; color: var(--primary); }
-    .log-date { font-size: 0.75rem; color: var(--muted); }
-    .log-stats { font-size: 0.8rem; margin-bottom: 8px; color: var(--text); }
-    .log-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-    .btn-sm {
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-      border: 1px solid var(--card-border);
-      background: #1e2430;
       color: var(--text);
+      padding: 5px 9px;
+      border-radius: 99px;
+      font-size: 0.74rem;
+      cursor: pointer;
     }
-    .btn-sm.primary { background: var(--primary); color: #000; border-color: var(--primary); }
-    .btn-sm.danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); border-color: var(--danger); }
+    .form-row { margin-bottom: 10px; }
+    .form-row label { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; }
+    .form-input {
+      width: 100%;
+      background: #0e1117;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   </style>
 </head>
 <body>
@@ -323,9 +387,9 @@
       <span id="date-str">Gym80 Ganzkörper-Split</span>
     </div>
     <div class="header-actions">
-      <button class="icon-btn" onclick="saveCurrentWorkoutToLog()" title="Training jetzt speichern">💾 Loggen</button>
-      <button class="icon-btn" onclick="copyForChat()" title="Für Chat kopieren">📋 Kopieren</button>
-      <button class="icon-btn" onclick="resetChecks()" title="Sätze zurücksetzen">🔄 Reset</button>
+      <button class="icon-btn" onclick="saveCurrentWorkoutToLog()" title="Training speichern">💾 Log</button>
+      <button class="icon-btn" onclick="copyForChat()" title="Für Chat kopieren">📋 Chat</button>
+      <button class="icon-btn" onclick="resetChecks()" title="Sätze auf 12 Wdh. zurücksetzen">🔄 Reset</button>
     </div>
   </header>
 
@@ -355,25 +419,80 @@
     </div>
   </div>
 
-  <!-- Modal zum Bearbeiten eines Logs -->
+  <!-- Modal 1: Log-Eintrag nachträglich bearbeiten -->
   <div class="modal-overlay" id="edit-log-modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Eintrag bearbeiten</h3>
-        <button class="close-modal-btn" onclick="closeEditModal()">×</button>
+        <h3>Log-Eintrag bearbeiten</h3>
+        <button class="close-modal-btn" onclick="closeEditLogModal()">×</button>
       </div>
-      <div style="margin-bottom: 12px;">
-        <label style="font-size:0.75rem; color:var(--muted);">Datum & Uhrzeit:</label>
-        <input type="text" id="edit-log-date" style="width:100%; background:#0e1117; border:1px solid var(--card-border); color:#fff; padding:8px; border-radius:8px; margin-top:4px;">
+      <div class="form-row">
+        <label>Datum & Uhrzeit:</label>
+        <input type="text" class="form-input" id="edit-log-date">
       </div>
-      <div style="margin-bottom: 12px;">
-        <label style="font-size:0.75rem; color:var(--muted);">Trainings-Notiz / Tagesform:</label>
-        <input type="text" id="edit-log-note" style="width:100%; background:#0e1117; border:1px solid var(--card-border); color:#fff; padding:8px; border-radius:8px; margin-top:4px;">
+      <div class="form-row">
+        <label>Trainings-Notiz / Tagesform:</label>
+        <input type="text" class="form-input" id="edit-log-note" placeholder="z.B. Gute Kraft, Schulter leicht gemerkt...">
       </div>
       <div id="edit-log-exercises"></div>
       <div style="display:flex; gap:10px; margin-top:16px;">
-        <button class="btn-sm primary" style="flex:1; padding:10px;" onclick="saveEditedLog()">Änderungen speichern</button>
-        <button class="btn-sm" style="padding:10px;" onclick="closeEditModal()">Abbrechen</button>
+        <button class="btn-sm primary" style="flex:1; padding:10px;" onclick="saveEditedLog()">Speichern</button>
+        <button class="btn-sm" style="padding:10px;" onclick="closeEditLogModal()">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Gerät / Übung im Plan bearbeiten oder neu anlegen -->
+  <div class="modal-overlay" id="edit-ex-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="ex-modal-title">Gerät anpassen</h3>
+        <button class="close-modal-btn" onclick="closeExModal()">×</button>
+      </div>
+      <label style="font-size:0.74rem; color:var(--muted); display:block; margin-bottom:6px;">Gym80 Schnellauswahl:</label>
+      <div class="chip-wrap" id="preset-chips"></div>
+      <div class="form-row">
+        <label>Name der Übung / Maschine:</label>
+        <input type="text" class="form-input" id="ex-name-input">
+      </div>
+      <div class="form-grid">
+        <div class="form-row">
+          <label>Min. Wdh.:</label>
+          <input type="number" class="form-input" id="ex-min-input" value="8">
+        </div>
+        <div class="form-row">
+          <label>Max. Wdh. (Ziel):</label>
+          <input type="number" class="form-input" id="ex-max-input" value="12">
+        </div>
+        <div class="form-row">
+          <label>Startgewicht (kg):</label>
+          <input type="number" step="0.5" class="form-input" id="ex-weight-input" value="30">
+        </div>
+        <div class="form-row">
+          <label>Steigerungsschritt (kg):</label>
+          <input type="number" step="0.5" class="form-input" id="ex-step-input" value="2.5">
+        </div>
+        <div class="form-row">
+          <label>Pause (Sekunden):</label>
+          <input type="number" step="15" class="form-input" id="ex-rest-input" value="90">
+        </div>
+        <div class="form-row">
+          <label>Sätze (1–5):</label>
+          <input type="number" min="1" max="5" class="form-input" id="ex-sets-input" value="3">
+        </div>
+      </div>
+      <div class="form-row">
+        <label>Gym80 Setup-Hinweis (Sitzhöhe, Polster):</label>
+        <input type="text" class="form-input" id="ex-hint-input">
+      </div>
+      <div style="display:flex; gap:8px; margin-top:12px;" id="ex-move-controls">
+        <button class="btn-sm" onclick="moveExercise(-1)">⬆️ Hoch</button>
+        <button class="btn-sm" onclick="moveExercise(1)">⬇️ Runter</button>
+        <button class="btn-sm danger" style="margin-left:auto;" onclick="deleteExercise()">🗑️ Löschen</button>
+      </div>
+      <div style="display:flex; gap:10px; margin-top:14px;">
+        <button class="btn-sm primary" style="flex:1; padding:10px;" onclick="saveExerciseModal()">Übernehmen</button>
+        <button class="btn-sm" style="padding:10px;" onclick="closeExModal()">Abbrechen</button>
       </div>
     </div>
   </div>
@@ -381,51 +500,74 @@
   <script>
     const defaultPlan = {
       A: [
-        { id: "a1", name: "1. Beinpresse 45°", min: 8, max: 10, weight: 130, step: 5, rest: 120, hint: "Füße mittig, schulterbreit" },
-        { id: "a2", name: "2. Beinstrecker", min: 10, max: 12, weight: 65, step: 2.5, rest: 90, hint: "Oben 1 Sekunde halten" },
-        { id: "a3", name: "3. Brustpresse flach", min: 8, max: 10, weight: 27.5, step: 2.5, rest: 90, hint: "Schulterblätter fixiert" },
-        { id: "a4", name: "4. Rudern brustgestützt", min: 8, max: 10, weight: 50, step: 2.5, rest: 90, hint: "Ellbogen eng am Körper" },
-        { id: "a5", name: "5. Latzug breit", min: 10, max: 12, weight: 55, step: 2.5, rest: 90, hint: "Zur oberen Brust ziehen" },
-        { id: "a6", name: "6. Seithebemaschine", min: 12, max: 15, weight: 20, step: 2.5, rest: 60, hint: "Seitliche Schulter" },
-        { id: "a7", name: "7. Kabelzug Trizepsdrücken", min: 10, max: 12, weight: 20, step: 2.5, rest: 60, hint: "Ellbogen fest am Körper" },
-        { id: "a8", name: "8. Bauchmaschine", min: 12, max: 15, weight: 90, step: 2.5, rest: 60, hint: "Rollende Bewegung aus Rippen" }
+        { id: "a1", name: "Beinpresse 45°", min: 8, max: 12, weight: 130, step: 5, rest: 120, setsCount: 3, hint: "Füße mittig, schulterbreit" },
+        { id: "a2", name: "Beinstrecker", min: 10, max: 12, weight: 65, step: 2.5, rest: 90, setsCount: 3, hint: "Oben 1 Sekunde halten" },
+        { id: "a3", name: "Brustpresse flach", min: 8, max: 12, weight: 27.5, step: 2.5, rest: 90, setsCount: 3, hint: "Schulterblätter fixiert" },
+        { id: "a4", name: "Rudern brustgestützt", min: 8, max: 12, weight: 50, step: 2.5, rest: 90, setsCount: 3, hint: "Ellbogen eng am Körper" },
+        { id: "a5", name: "Latzug breit", min: 10, max: 12, weight: 55, step: 2.5, rest: 90, setsCount: 3, hint: "Zur oberen Brust ziehen" },
+        { id: "a6", name: "Seithebemaschine", min: 10, max: 12, weight: 20, step: 2.5, rest: 60, setsCount: 3, hint: "Seitliche Schulter" },
+        { id: "a7", name: "Trizeps-Maschine / Kabel", min: 10, max: 12, weight: 25, step: 2.5, rest: 60, setsCount: 3, hint: "Ellbogen fest fixiert" },
+        { id: "a8", name: "Bauchmaschine", min: 10, max: 12, weight: 90, step: 2.5, rest: 60, setsCount: 3, hint: "Rollende Bewegung aus Rippen" }
       ],
       B: [
-        { id: "b1", name: "1. Beinpresse (Füße hoch)", min: 10, max: 12, weight: 125, step: 5, rest: 120, hint: "Füße weit oben für Gesäß/Beinbeuger" },
-        { id: "b2", name: "2. Beinbeuger sitzend", min: 10, max: 12, weight: 65, step: 2.5, rest: 90, hint: "Fersen aktiv anziehen" },
-        { id: "b3", name: "3. Schräg-Brustpresse", min: 8, max: 10, weight: 25, step: 2.5, rest: 90, hint: "Obere Brust" },
-        { id: "b4", name: "4. Latzug eng (Parallel)", min: 8, max: 10, weight: 60, step: 2.5, rest: 90, hint: "Enger Griff, Lat-Fokus" },
-        { id: "b5", name: "5. Butterfly", min: 10, max: 12, weight: 25, step: 2.5, rest: 60, hint: "Arme leicht gebeugt" },
-        { id: "b6", name: "6. Reverse Butterfly", min: 12, max: 15, weight: 25, step: 2.5, rest: 60, hint: "Hintere Schulter" },
-        { id: "b7", name: "7. Bizepscurls", min: 10, max: 12, weight: 22.5, step: 2.5, rest: 60, hint: "Ohne Schwung" },
-        { id: "b8", name: "8. Rumpfstrecker / Bauch", min: 12, max: 15, weight: 90, step: 2.5, rest: 60, hint: "Rückenstrecker oder Crunch" }
+        { id: "b1", name: "Beinpresse (Füße hoch)", min: 10, max: 12, weight: 125, step: 5, rest: 120, setsCount: 3, hint: "Füße weit oben für Gesäß/Beinbeuger" },
+        { id: "b2", name: "Beinbeuger sitzend", min: 10, max: 12, weight: 65, step: 2.5, rest: 90, setsCount: 3, hint: "Fersen aktiv anziehen" },
+        { id: "b3", name: "Schräg-Brustpresse", min: 8, max: 12, weight: 25, step: 2.5, rest: 90, setsCount: 3, hint: "Obere Brust" },
+        { id: "b4", name: "Latzug eng (Parallel)", min: 8, max: 12, weight: 60, step: 2.5, rest: 90, setsCount: 3, hint: "Enger Griff, Lat-Fokus" },
+        { id: "b5", name: "Butterfly", min: 10, max: 12, weight: 25, step: 2.5, rest: 60, setsCount: 3, hint: "Arme leicht gebeugt" },
+        { id: "b6", name: "Reverse Butterfly", min: 10, max: 12, weight: 25, step: 2.5, rest: 60, setsCount: 3, hint: "Hintere Schulter" },
+        { id: "b7", name: "Bizepscurls", min: 10, max: 12, weight: 22.5, step: 2.5, rest: 60, setsCount: 3, hint: "Ohne Schwung" },
+        { id: "b8", name: "Rumpfstrecker / Bauch", min: 10, max: 12, weight: 90, step: 2.5, rest: 60, setsCount: 3, hint: "Rückenstrecker oder Crunch" }
       ]
     };
 
+    const gym80Presets = [
+      { name: "Trizeps-Maschine", min: 10, max: 12, weight: 25, step: 2.5, rest: 60, hint: "Arme auf Polster fixiert" },
+      { name: "Dip-Maschine sitzend", min: 8, max: 12, weight: 40, step: 5, rest: 90, hint: "Oberkörper aufrecht" },
+      { name: "Rumpfstrecker (Back Ext.)", min: 10, max: 12, weight: 45, step: 5, rest: 60, hint: "Polster auf Hüfthöhe" },
+      { name: "Schulterpresse", min: 8, max: 12, weight: 25, step: 2.5, rest: 90, hint: "Griffe auf Kinn-Höhe" },
+      { name: "Adduktion", min: 10, max: 12, weight: 90, step: 2.5, rest: 60, hint: "Innenschenkel" },
+      { name: "Abduktion", min: 10, max: 12, weight: 90, step: 2.5, rest: 60, hint: "Außenschenkel" },
+      { name: "Wadenheben", min: 10, max: 12, weight: 60, step: 5, rest: 60, hint: "Volle Dehnung unten" }
+    ];
+
+    let plan = JSON.parse(localStorage.getItem('me_fitness_plan') || 'null') || defaultPlan;
     let activeTab = localStorage.getItem('gym80_active_tab') || 'A';
     let state = JSON.parse(localStorage.getItem('gym80_pro_state') || '{}');
     let logs = JSON.parse(localStorage.getItem('me_fitness_logs') || '[]');
-    let currentEditingLogIndex = null;
 
-    function saveState() {
+    // Einmalige Migration: Alle noch nicht abgehakten Sätze auf 12 Wiederholungen vorbelegen
+    if (!localStorage.getItem('me_fitness_reps12_migrated')) {
+      Object.keys(state).forEach(k => {
+        if (state[k] && Array.isArray(state[k].sets)) {
+          state[k].sets.forEach(s => { if (!s.done) s.r = 12; });
+        }
+      });
       localStorage.setItem('gym80_pro_state', JSON.stringify(state));
-      updateProgress();
+      localStorage.setItem('me_fitness_reps12_migrated', 'true');
     }
 
-    function saveLogs() {
-      localStorage.setItem('me_fitness_logs', JSON.stringify(logs));
-    }
+    let currentEditingLogIndex = null;
+    let editingExIndex = null;
+
+    function savePlan() { localStorage.setItem('me_fitness_plan', JSON.stringify(plan)); }
+    function saveState() { localStorage.setItem('gym80_pro_state', JSON.stringify(state)); updateProgress(); }
+    function saveLogs() { localStorage.setItem('me_fitness_logs', JSON.stringify(logs)); }
 
     function getExState(ex) {
+      const targetCount = ex.setsCount || 3;
       if (!state[ex.id]) {
         state[ex.id] = {
-          note: ex.hint,
-          sets: [
-            { w: ex.weight, r: ex.min, done: false },
-            { w: ex.weight, r: ex.min, done: false },
-            { w: ex.weight, r: ex.min, done: false }
-          ]
+          note: ex.hint || '',
+          // Immer mit 12 Wiederholungen vorbelegen:
+          sets: Array.from({ length: targetCount }, () => ({ w: ex.weight, r: 12, done: false }))
         };
+      }
+      while (state[ex.id].sets.length < targetCount) {
+        state[ex.id].sets.push({ w: ex.weight, r: 12, done: false });
+      }
+      if (state[ex.id].sets.length > targetCount) {
+        state[ex.id].sets = state[ex.id].sets.slice(0, targetCount);
       }
       return state[ex.id];
     }
@@ -447,21 +589,23 @@
         return;
       }
 
-      defaultPlan[activeTab].forEach(ex => {
+      plan[activeTab].forEach((ex, exIdx) => {
         const st = getExState(ex);
-        const allMax = st.sets.every(s => Number(s.r) >= ex.max);
+        // Steigerungshinweis nur anzeigen, wenn alle Sätze abgehakt (done) UND >= Ziel-Wdh. sind
+        const allDoneAndMax = st.sets.every(s => s.done && Number(s.r) >= ex.max);
 
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
           <div class="card-top">
-            <div class="ex-title">${ex.name}</div>
+            <div class="ex-title">${exIdx + 1}. ${ex.name}</div>
             <div class="badges">
-              ${allMax ? `<span class="badge-levelup">⬆️ +${ex.step} kg bereit!</span>` : ''}
-              <span class="badge-target">3× ${ex.min}–${ex.max} | ${ex.rest}s</span>
+              ${allDoneAndMax ? `<span class="badge-levelup">⬆️ +${ex.step} kg</span>` : ''}
+              <span class="badge-target">${st.sets.length}× ${ex.min}–${ex.max}</span>
+              <button class="edit-ex-btn" onclick="openExModal(${exIdx})">✏️ Edit</button>
             </div>
           </div>
-          <button class="setup-toggle" onclick="toggleNote('${ex.id}')">⚙️ Setup: <span id="preview-${ex.id}">${st.note}</span></button>
+          <button class="setup-toggle" onclick="toggleNote('${ex.id}')">⚙️ Setup: <span id="preview-${ex.id}">${st.note || 'hinzufügen'}</span></button>
           <input class="note-box" id="note-${ex.id}" value="${st.note}" oninput="updateNote('${ex.id}', this.value)" placeholder="Sitzhöhe, Polster...">
           <div id="sets-${ex.id}"></div>
         `;
@@ -491,6 +635,12 @@
         });
       });
 
+      const addBtn = document.createElement('button');
+      addBtn.className = 'btn-add-ex';
+      addBtn.innerHTML = '➕ Neues Gerät / Übung hinzufügen';
+      addBtn.onclick = () => openExModal(null);
+      container.appendChild(addBtn);
+
       const finishBtn = document.createElement('button');
       finishBtn.className = 'btn-finish';
       finishBtn.innerHTML = '✅ Training abschließen & im Logbuch speichern';
@@ -500,24 +650,38 @@
       updateProgress();
     }
 
+    // --- REITER: KI & LOG (INKLUSIVE KOMPAKTER ÜBERSICHT) ---
     function renderLogTab(container) {
       let html = `
         <div class="card">
           <h3 style="margin-top:0; color:var(--primary);">🤖 KI-Analyse & Daten-Export</h3>
-          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Kopiere deine Daten mit einem Klick, um sie von ChatGPT oder Gemini auswerten zu lassen.</p>
-          <div style="display:flex; gap:8px;">
+          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Kopiere dein Training (nur abgehakte Übungen) oder deine gesamte Historie mit einem Klick.</p>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button class="btn-sm primary" style="flex:1; padding:10px;" onclick="copyForChat()">📋 Aktuelles Training kopieren</button>
             <button class="btn-sm" style="flex:1; padding:10px;" onclick="copyFullHistory()">📈 Alle Logs kopieren</button>
           </div>
         </div>
 
-        <h3 style="font-size:1.1rem; margin:16px 0 10px 4px;">Trainings-Historie (${logs.length})</h3>
+        <h3 style="font-size:1.05rem; margin:16px 0 10px 4px;">Trainings-Historie (${logs.length})</h3>
       `;
 
       if (logs.length === 0) {
-        html += `<div class="card" style="text-align:center; color:var(--muted); font-size:0.85rem; padding:24px;">Noch keine Trainings gespeichert. Schließe dein erstes Training mit dem grünen Button ab!</div>`;
+        html += `<div class="card" style="text-align:center; color:var(--muted); font-size:0.85rem; padding:24px;">Noch keine Trainings gespeichert. Hake deine gemachten Sätze grün ab und tippe unten auf den grünen Abschluss-Button!</div>`;
       } else {
         logs.forEach((log, idx) => {
+          const miniRows = log.exercises.map(ex => {
+            const weights = ex.sets.map(s => s.w);
+            const sameWeight = weights.every(w => w === weights[0]);
+            const weightStr = sameWeight ? `${weights[0]} kg` : weights.map(w => `${w}kg`).join('/');
+            const repsStr = ex.sets.map(s => s.r).join('/');
+            return `
+              <div class="log-mini-row">
+                <span class="log-mini-name">${ex.name}</span>
+                <span class="log-mini-val">${weightStr} — ${repsStr}</span>
+              </div>
+            `;
+          }).join('');
+
           html += `
             <div class="log-item">
               <div class="log-item-header">
@@ -525,14 +689,17 @@
                 <span class="log-date">${log.date}</span>
               </div>
               <div class="log-stats">
-                <strong>Volumen:</strong> ${log.totalVolume.toLocaleString('de-DE')} kg | <strong>Übungen:</strong> ${log.exercises.length}
-                ${log.note ? `<br><em>"${log.note}"</em>` : ''}
+                <strong>Gesamtvolumen:</strong> ${log.totalVolume.toLocaleString('de-DE')} kg | <strong>Übungen:</strong> ${log.exercises.length}
+                ${log.note ? ` | 📝 <em>"${log.note}"</em>` : ''}
+              </div>
+              <div class="log-mini-table">
+                ${miniRows}
               </div>
               <div class="log-actions">
-                <button class="btn-sm primary" onclick="openEditModal(${idx})">✏️ Bearbeiten</button>
+                <button class="btn-sm primary" onclick="openEditLogModal(${idx})">✏️ Bearbeiten</button>
                 <button class="btn-sm" onclick="loadLogIntoWorkout(${idx})">📥 Ins Training laden</button>
-                <button class="btn-sm" onclick="copySingleLog(${idx})">📋 Text</button>
-                <button class="btn-sm danger" onclick="deleteLog(${idx})">🗑️ Löschen</button>
+                <button class="btn-sm" onclick="copySingleLog(${idx})">📋 Kopieren</button>
+                <button class="btn-sm danger" onclick="deleteLog(${idx})">🗑️</button>
               </div>
             </div>
           `;
@@ -542,28 +709,130 @@
       container.innerHTML = html;
     }
 
-    // --- LOGGING & BEARBEITEN ---
+    // --- GERÄTE-EDITOR (AUSTAUSCHEN & NEU ANLEGEN) ---
+    function openExModal(exIdx) {
+      editingExIndex = exIdx;
+      const chipsWrap = document.getElementById('preset-chips');
+      chipsWrap.innerHTML = gym80Presets.map((p, i) =>
+        `<button class="chip" onclick="applyPreset(${i})">${p.name}</button>`
+      ).join('');
+
+      if (exIdx !== null) {
+        const ex = plan[activeTab][exIdx];
+        document.getElementById('ex-modal-title').innerText = 'Gerät bearbeiten';
+        document.getElementById('ex-name-input').value = ex.name;
+        document.getElementById('ex-min-input').value = ex.min;
+        document.getElementById('ex-max-input').value = ex.max;
+        document.getElementById('ex-weight-input').value = ex.weight;
+        document.getElementById('ex-step-input').value = ex.step;
+        document.getElementById('ex-rest-input').value = ex.rest;
+        document.getElementById('ex-sets-input').value = ex.setsCount || 3;
+        document.getElementById('ex-hint-input').value = ex.hint || '';
+        document.getElementById('ex-move-controls').style.display = 'flex';
+      } else {
+        document.getElementById('ex-modal-title').innerText = 'Neues Gerät hinzufügen';
+        document.getElementById('ex-name-input').value = '';
+        document.getElementById('ex-min-input').value = 10;
+        document.getElementById('ex-max-input').value = 12;
+        document.getElementById('ex-weight-input').value = 30;
+        document.getElementById('ex-step-input').value = 2.5;
+        document.getElementById('ex-rest-input').value = 90;
+        document.getElementById('ex-sets-input').value = 3;
+        document.getElementById('ex-hint-input').value = '';
+        document.getElementById('ex-move-controls').style.display = 'none';
+      }
+      document.getElementById('edit-ex-modal').classList.add('open');
+    }
+
+    function applyPreset(i) {
+      const p = gym80Presets[i];
+      document.getElementById('ex-name-input').value = p.name;
+      document.getElementById('ex-min-input').value = p.min;
+      document.getElementById('ex-max-input').value = p.max;
+      document.getElementById('ex-weight-input').value = p.weight;
+      document.getElementById('ex-step-input').value = p.step;
+      document.getElementById('ex-rest-input').value = p.rest;
+      document.getElementById('ex-hint-input').value = p.hint;
+    }
+
+    function closeExModal() {
+      document.getElementById('edit-ex-modal').classList.remove('open');
+      editingExIndex = null;
+    }
+
+    function saveExerciseModal() {
+      const name = document.getElementById('ex-name-input').value.trim() || 'Gym80 Gerät';
+      const min = parseInt(document.getElementById('ex-min-input').value) || 8;
+      const max = parseInt(document.getElementById('ex-max-input').value) || 12;
+      const weight = parseFloat(document.getElementById('ex-weight-input').value) || 20;
+      const step = parseFloat(document.getElementById('ex-step-input').value) || 2.5;
+      const rest = parseInt(document.getElementById('ex-rest-input').value) || 90;
+      const setsCount = Math.min(5, Math.max(1, parseInt(document.getElementById('ex-sets-input').value) || 3));
+      const hint = document.getElementById('ex-hint-input').value;
+
+      if (editingExIndex !== null) {
+        const ex = plan[activeTab][editingExIndex];
+        ex.name = name; ex.min = min; ex.max = max; ex.weight = weight; ex.step = step; ex.rest = rest; ex.setsCount = setsCount; ex.hint = hint;
+        if (state[ex.id]) state[ex.id].note = hint;
+      } else {
+        const newId = activeTab.toLowerCase() + '_' + Date.now();
+        plan[activeTab].push({ id: newId, name, min, max, weight, step, rest, setsCount, hint });
+      }
+      savePlan();
+      saveState();
+      closeExModal();
+      render();
+    }
+
+    function moveExercise(dir) {
+      if (editingExIndex === null) return;
+      const list = plan[activeTab];
+      const target = editingExIndex + dir;
+      if (target < 0 || target >= list.length) return;
+      const temp = list[editingExIndex];
+      list[editingExIndex] = list[target];
+      list[target] = temp;
+      editingExIndex = target;
+      savePlan();
+      render();
+    }
+
+    function deleteExercise() {
+      if (editingExIndex === null) return;
+      if (!confirm('Dieses Gerät wirklich aus dem Plan entfernen?')) return;
+      plan[activeTab].splice(editingExIndex, 1);
+      savePlan();
+      closeExModal();
+      render();
+    }
+
+    // --- LOGGING (NUR ABGEHAKTE ÜBUNGEN SPEICHERN) ---
     function saveCurrentWorkoutToLog() {
-      const list = defaultPlan[activeTab];
+      if (activeTab === 'LOG') return;
+      const list = plan[activeTab];
       let totalVolume = 0;
       let exercises = [];
 
       list.forEach(ex => {
         const st = getExState(ex);
+        // Nur Sätze berücksichtigen, die einen grünen Haken (done === true) haben!
+        const doneSets = st.sets.filter(s => s.done);
+        if (doneSets.length === 0) return; // Übung wurde ausgelassen -> komplett überspringen
+
         let setsData = [];
-        st.sets.forEach(s => {
+        doneSets.forEach(s => {
           const w = parseFloat(s.w) || 0;
           const r = parseInt(s.r) || 0;
           totalVolume += (w * r);
-          setsData.push({ w, r, done: s.done });
+          setsData.push({ w, r, done: true });
         });
-        exercises.push({
-          id: ex.id,
-          name: ex.name,
-          note: st.note,
-          sets: setsData
-        });
+        exercises.push({ id: ex.id, name: ex.name, note: st.note, sets: setsData });
       });
+
+      if (exercises.length === 0) {
+        alert('⚠️ Du hast noch keinen einzigen Satz mit dem grünen Haken (✓) markiert! Bitte hake zuerst die Sätze ab, die du heute trainiert hast.');
+        return;
+      }
 
       const now = new Date();
       const dateStr = now.toLocaleDateString('de-DE', { weekday: 'short', day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
@@ -578,10 +847,10 @@
       });
 
       saveLogs();
-      alert(`✅ Einheit ${activeTab} erfolgreich mit ${totalVolume.toLocaleString('de-DE')} kg Gesamtvolumen gespeichert!`);
+      alert(`✅ Einheit ${activeTab} gespeichert! (${exercises.length} Übungen | ${totalVolume.toLocaleString('de-DE')} kg Volumen)`);
     }
 
-    function openEditModal(index) {
+    function openEditLogModal(index) {
       currentEditingLogIndex = index;
       const log = logs[index];
       document.getElementById('edit-log-date').value = log.date;
@@ -595,9 +864,9 @@
         ex.sets.forEach((s, sIdx) => {
           setsHtml += `
             <div style="display:flex; align-items:center; gap:6px; margin-top:4px;">
-              <span style="font-size:0.75rem; color:var(--muted); width:20px;">#${sIdx + 1}</span>
-              <input type="number" step="0.5" id="medit_w_${exIdx}_${sIdx}" value="${s.w}" style="width:70px; background:#1e2430; border:1px solid var(--card-border); color:#fff; border-radius:6px; padding:4px; text-align:center;"> kg
-              <input type="number" id="medit_r_${exIdx}_${sIdx}" value="${s.r}" style="width:60px; background:#1e2430; border:1px solid var(--card-border); color:#fff; border-radius:6px; padding:4px; text-align:center;"> Wdh
+              <span style="font-size:0.75rem; color:var(--muted); width:22px;">#${sIdx + 1}</span>
+              <input type="number" step="0.5" id="medit_w_${exIdx}_${sIdx}" value="${s.w}" style="width:74px; background:#1e2430; border:1px solid var(--card-border); color:#fff; border-radius:6px; padding:5px; text-align:center;"> kg
+              <input type="number" id="medit_r_${exIdx}_${sIdx}" value="${s.r}" style="width:64px; background:#1e2430; border:1px solid var(--card-border); color:#fff; border-radius:6px; padding:5px; text-align:center;"> Wdh
             </div>
           `;
         });
@@ -613,7 +882,7 @@
       document.getElementById('edit-log-modal').classList.add('open');
     }
 
-    function closeEditModal() {
+    function closeEditLogModal() {
       document.getElementById('edit-log-modal').classList.remove('open');
       currentEditingLogIndex = null;
     }
@@ -639,33 +908,47 @@
       log.totalVolume = newVolume;
 
       saveLogs();
-      closeEditModal();
+      closeEditLogModal();
       render();
-      alert('Änderungen am Log erfolgreich gespeichert!');
     }
 
     function loadLogIntoWorkout(index) {
       const log = logs[index];
-      if (!confirm(`Möchtest du Einheit ${log.unit} vom ${log.date} zurück in die aktive Trainingsansicht laden? Aktuelle Werte werden überschrieben.`)) return;
+      if (!confirm(`Möchtest du Einheit ${log.unit} vom ${log.date} zurück in die aktive Trainingsansicht laden?`)) return;
 
+      // Erst alle Haken der Einheit zurücksetzen, damit ausgelassene Übungen unmarkiert bleiben
+      plan[log.unit].forEach(ex => {
+        getExState(ex).sets.forEach(s => { s.done = false; s.r = 12; });
+      });
+
+      // Dann gespeicherte Übungen aus dem Log übertragen und grün markieren
       log.exercises.forEach(ex => {
         if (!state[ex.id]) state[ex.id] = { note: ex.note || '', sets: [] };
-        state[ex.id].sets = ex.sets.map(s => ({ w: s.w, r: s.r, done: true }));
+        const targetCount = (plan[log.unit].find(p => p.id === ex.id)?.setsCount) || 3;
+        const newSets = [];
+        for (let i = 0; i < targetCount; i++) {
+          if (ex.sets[i]) {
+            newSets.push({ w: ex.sets[i].w, r: ex.sets[i].r, done: true });
+          } else {
+            const fallbackW = ex.sets[0]?.w || 20;
+            newSets.push({ w: fallbackW, r: 12, done: false });
+          }
+        }
+        state[ex.id].sets = newSets;
       });
 
       saveState();
       switchTab(log.unit);
-      alert(`Einheit ${log.unit} geladen! Du kannst die Werte nun im Plan anpassen.`);
     }
 
     function deleteLog(index) {
-      if (!confirm('Diesen Eintrag wirklich unwiderruflich löschen?')) return;
+      if (!confirm('Diesen Log-Eintrag wirklich löschen?')) return;
       logs.splice(index, 1);
       saveLogs();
       render();
     }
 
-    // --- HILFSFUNKTIONEN & TIMER ---
+    // --- ALLGEMEINE STEUERUNG & COPY ---
     function toggleNote(id) { document.getElementById(`note-${id}`).classList.toggle('open'); }
     function updateNote(id, val) { state[id].note = val; document.getElementById(`preview-${id}`).innerText = val || 'hinzufügen'; saveState(); }
     function stepVal(id, idx, field, delta) {
@@ -689,56 +972,74 @@
     }
     function updateProgress() {
       if (activeTab === 'LOG') return;
-      const list = defaultPlan[activeTab];
-      let total = list.length * 3;
-      let done = 0;
-      list.forEach(ex => { getExState(ex).sets.forEach(s => { if (s.done) done++; }); });
-      document.getElementById('progress-fill').style.width = `${(done / total) * 100}%`;
+      const list = plan[activeTab];
+      let total = 0, done = 0;
+      list.forEach(ex => {
+        const st = getExState(ex);
+        total += st.sets.length;
+        st.sets.forEach(s => { if (s.done) done++; });
+      });
+      document.getElementById('progress-fill').style.width = total ? `${(done / total) * 100}%` : '0%';
     }
     function resetChecks() {
-      if (activeTab === 'LOG') return;
-      if (!confirm(`Alle Haken für Einheit ${activeTab} zurücksetzen?`)) return;
-      defaultPlan[activeTab].forEach(ex => { getExState(ex).sets.forEach(s => s.done = false); });
+      const unit = activeTab === 'LOG' ? 'A' : activeTab;
+      if (!confirm(`Alle Haken für Einheit ${unit} entfernen und Wiederholungen wieder auf 12 vorbelegen?`)) return;
+      plan[unit].forEach(ex => {
+        getExState(ex).sets.forEach(s => {
+          s.done = false;
+          s.r = 12;
+        });
+      });
       saveState();
       render();
     }
 
     function copyForChat() {
-      let lines = [`Me Fitness – Einheit ${activeTab} (${new Date().toLocaleDateString('de-DE')}):`];
-      defaultPlan[activeTab].forEach(ex => {
+      const unit = activeTab === 'LOG' ? (localStorage.getItem('gym80_active_tab') || 'A') : activeTab;
+      let lines = [`Me Fitness – Einheit ${unit} (${new Date().toLocaleDateString('de-DE')}):`];
+      let count = 0;
+      plan[unit].forEach(ex => {
         const st = getExState(ex);
-        const w = st.sets[0].w;
-        const reps = st.sets.map(s => s.r).join('/');
+        const doneSets = st.sets.filter(s => s.done);
+        if (doneSets.length === 0) return; // Nicht gemachte Übungen weglassen
+        count++;
+        const w = doneSets[0].w;
+        const reps = doneSets.map(s => s.r).join('/');
         lines.push(`${ex.name}: ${w} kg — ${reps}`);
       });
-      lines.push('\nBitte werte meine Leistung aus und gib mir Feedback zur Steigerung.');
-      navigator.clipboard.writeText(lines.join('\n')).then(() => alert('In Zwischenablage kopiert!'));
+      if (count === 0) {
+        alert('⚠️ Es sind noch keine Sätze grün abgehakt! Bitte markiere zuerst deine gemachten Sätze.');
+        return;
+      }
+      lines.push('\nBitte werte meine Leistung aus und sag mir, wo ich steigern kann.');
+      navigator.clipboard.writeText(lines.join('\n')).then(() => alert('Für den Chat kopiert (nur abgehakte Übungen)!'));
     }
 
     function copySingleLog(index) {
       const log = logs[index];
       let lines = [`Me Fitness Log – Einheit ${log.unit} (${log.date}):`, `Gesamtvolumen: ${log.totalVolume} kg`];
       log.exercises.forEach(ex => {
-        const reps = ex.sets.map(s => `${s.w}kg×${s.r}`).join(' | ');
-        lines.push(`${ex.name}: ${reps}`);
+        const w = ex.sets[0]?.w || 0;
+        const reps = ex.sets.map(s => s.r).join('/');
+        lines.push(`${ex.name}: ${w} kg — ${reps}`);
       });
-      navigator.clipboard.writeText(lines.join('\n')).then(() => alert('Log-Eintrag kopiert!'));
+      navigator.clipboard.writeText(lines.join('\n')).then(() => alert('Log kopiert!'));
     }
 
     function copyFullHistory() {
-      if (logs.length === 0) return alert('Noch keine Logs vorhanden.');
+      if (logs.length === 0) return alert('Noch keine Logs gespeichert.');
       let lines = ['Me Fitness Trainingshistorie:\n'];
       logs.forEach(log => {
-        lines.push(`=== Einheit ${log.unit} am ${log.date} (Volumen: ${log.totalVolume} kg) ===`);
+        lines.push(`=== Einheit ${log.unit} (${log.date}) | Volumen: ${log.totalVolume} kg ===`);
         log.exercises.forEach(ex => {
-          lines.push(`${ex.name}: ${ex.sets.map(s => `${s.w}kg×${s.r}`).join(', ')}`);
+          lines.push(`${ex.name}: ${ex.sets[0]?.w || 0} kg — ${ex.sets.map(s => s.r).join('/')}`);
         });
         lines.push('');
       });
-      navigator.clipboard.writeText(lines.join('\n')).then(() => alert('Gesamte Historie kopiert!'));
+      navigator.clipboard.writeText(lines.join('\n')).then(() => alert('Komplette Historie kopiert!'));
     }
 
-    // Timer
+    // --- ECHTZEIT-TIMER ---
     let timerEnd = null, remainingSec = 90, timerInterval = null;
     function formatTime(s) { return `${String(Math.floor(s/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`; }
     function updateTimerUI() {
@@ -756,7 +1057,7 @@
           clearInterval(timerInterval);
           timerInterval = null;
           remainingSec = 0;
-          document.getElementById('timer-status').innerText = '🔥 Nächster Satz!';
+          document.getElementById('timer-status').innerText = '🔥 Weiter geht’s! Nächster Satz!';
         } else { remainingSec = diff; }
         updateTimerUI();
       }, 250);
